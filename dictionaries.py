@@ -1,6 +1,14 @@
-capitals = {"China" : "Beijing", 
+capitals = {"China" : "Beijing",
             "USA" : "Washington DC",
             "France" : "Paris"}
-print(capitals.get("France"))
-print(capitals.get("USA"))
-print(capitals.get("China"))
+capitals.update({"Germany" : "Berlin"})
+#capitals.pop("USA")
+#capitals.popitem()
+#capitals.clear()
+keys = capitals.keys()
+#print(keys)
+
+#for i in capitals.values():
+    #print(i)
+for key, value in capitals.items():
+    print(f"{key}, {value}")
