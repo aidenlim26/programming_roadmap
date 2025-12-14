@@ -4,7 +4,7 @@ import pandas as pd
 df = pd.read_csv("IRIS_dataset.csv")
 #print(df)   #Only print the first 5 and last 5 rows
 
-#print(df.to_string())                   #This prints ALL the rows
+#print(df.to_string())         #This prints ALL the rows
 
 
 
