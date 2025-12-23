@@ -44,16 +44,27 @@ missing_age = df["Age"].isna().sum()
 median_age = df["Age"].median()
 df["Age"] = df["Age"].fillna(median_age)
 new_missing_age = df["Age"].isna().sum()
-print(f"Old missing ages: {missing_age}")
-print(f"New missing ages: {new_missing_age}")
+#rint(f"Old missing ages: {missing_age}")
+#print(f"New missing ages: {new_missing_age}")
 max_age = df["Age"].max()
 min_age = df["Age"].min()
-print(f"Max age: {max_age}")
-print(f"Min age: {min_age}")
+#print(f"Max age: {max_age}")
+#print(f"Min age: {min_age}")
 
 #Duplicates + basic validation
 #Are there any duplicate PassengerId values? If yes, remove duplicates (keep first).
+duplicated_age = df["Age"].duplicated().sum()
+#print(f"Duplicated ages = {duplicated_age}")
+df = df.drop_duplicates(subset=["Age"],keep="first")
+#print(df)
+#print("New duplicated ages:", df["Age"].duplicated().sum())
 #Check for any impossible values: Age < 0 or Fare < 0. How many rows are invalid?
+# make sure they're numeric (safe if already done)
+df["Age"]  = pd.to_numeric(df["Age"], errors="coerce")
+df["Fare"] = pd.to_numeric(df["Fare"], errors="coerce")
+invalid_mask = (df["Age"] < 0) | (df["Fare"] < 0)
+invalid_rows = df[invalid_mask]
+print("Invalid rows (Age < 0 or Fare < 0):", invalid_rows.shape[0])
 
 
 

@@ -31,7 +31,11 @@ df["species"] = df["species"].str.lower()        #Make all values in the column 
 # 5. Fix data types
 #df["Legendary"] = df["Legendary"].astype(bool)  #astype function changes the datatype
 
-# 6. Remove duplicate values
+# 6. Duplicate values
+#ONE COLUMN
+duplicated_values = df["species"].duplicated(keep="first")  #keep="first" marks everything as false apart from duplicated values, but the first original value is false
+#MULTIPLE COLUMNS
+duplicated_values1 = df.duplicated(subset=["species","petal_width","petal_length"], keep="first")     #subset = used to select multiple columns
 df = df.drop_duplicates()           #Deletes all duplicate rows
 
 # 7. Sorting values from largest to smallest
