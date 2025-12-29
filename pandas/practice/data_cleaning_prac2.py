@@ -1,4 +1,5 @@
 import pandas as pd
+
 df = pd.read_csv("titanic_passengers.csv")
 
 #QUICK INSPECTION
@@ -60,12 +61,32 @@ group_sex = df.groupby("Sex")
 group_Pclass = df.groupby("Pclass")
 #print((group_Pclass["Survived"].mean())*100)
 #group_PClass = df.groupby("Pclass")
-
 #print(group_PClass["Survived"].mean() * 100)
 #Average Fare by Embarked and Pclass (a 2D groupby).
+average_fare = df.groupby(["Embarked", "Pclass"])["Fare"].mean().round(2)
+#print(average_fare)
 #For each Embarked, show the median Age and count of passengers.
+group_embarked = df.groupby("Embarked")
+median_age = group_embarked["Age"].median()
+#print(median_age)
+count_passengers = group_embarked["PassengerId"].count()
+#print(count_passengers)
 
 
+#VALUE COUNTS & MAPPING
+#Embarked proportions (value_counts(normalize=True)) after filling missing.
+df = df.fillna({"Embarked":"Missing"})
+embarked_proportions = df["Embarked"].value_counts(normalize=True)*100
+#print(embarked_proportions)
+#Map Sex to numeric (male->0, female->1) into a new column SexCode.
+SexCode = df["Sex"].replace({"male":0,"female":1})
+#print(SexCode)
+
+
+#STRING CLEANING
+#Extract title from Name (e.g., Mr, Mrs, Miss) into a Title column.
+
+#Show the top 10 most common titles.
 
 
 

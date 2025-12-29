@@ -12,7 +12,8 @@ df = pd.read_csv("IRIS_dataset.csv")
 #print(df.sum(numeric_only=True))
 #print(df.min(numeric_only=True))
 #print(df.max(numeric_only=True))
-#print(df.count())  #Count function counts the number of values in each column
+#print(df.count())  #Count function counts the number of non-NaN values in each column
+#print(df.size())   #Counts number of rows in each column including NaN values
 
 #SINGLE COLUMN
 #print(df["petal_width"].mean())
