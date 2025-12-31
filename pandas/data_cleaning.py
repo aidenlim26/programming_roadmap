@@ -25,10 +25,14 @@ df["species"] = df["species"].replace({"Iris-setosa":"SETOSA"})         #df[], s
                                                                         #value=what u want to replace it with
                                                                         #you can add multiple things to change in the dictionary
 
+df["active"] = df["active"].map(fix_active_booleans).fillna(False).astype(bool)  #Map function is different as it returns NaN for values not found in the dictionary
+                                                                                 #Good for booleans
+
 # 4. Standardise text
 df["species"] = df["species"].str.strip()        #Removes all spaces before the words
 df["species"] = df["species"].str.lower()        #Make all values in the column lower case
 df["species"] = df["species"].str.title()        #Make only the first value capital, everything else lower
+dirty_spend_mask = df["spend"].astype(str).str.contains(r'\$') #If the string contains "$"
 
 # 5. Fix data types
 #df["Legendary"] = df["Legendary"].astype(bool)  #astype function changes the datatype
@@ -58,8 +62,8 @@ print(mode)
 #print(df.to_string())
 
 # 10. Coverting values to a date (datetime)
-df["Permit Creation Date"] = pd.to_datetime(df["Permit Creation Date"],errors="coerce") #from object to a date e.g. (2016-05-27)
-
+df["Permit Creation Date"] = pd.to_datetime(df["Permit Creation Date"], dayfirst=True, errors="coerce") #from object to a date e.g. (2016-05-27)
+                                                                        #dayfirst=True means its in DD/MM/YYYY instead of the default MM/DD/YYYY
 # 11. Finding unique values
 unique_values = df["Description"].unique()  #shows all the unique values
 unique_values_count = df["Description"].nunique(dropna=True)        #Counts number of unique values sort of like .sum()
