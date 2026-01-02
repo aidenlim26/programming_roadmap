@@ -43,6 +43,8 @@ df["artist"] = df["artist"].replace(fix_beyonce_name)
 df["year(s)"] = df["year(s)"].astype(str).replace("[–]","-", regex=True).str.strip()
 df[["start_year","end_year"]] = df["year(s)"].str.split("-", n=1, expand=True)
 df["end_year"] = df["end_year"].fillna(df["start_year"])
+df = df.drop(columns="year(s)")
+#print(df.columns.to_list())
 
 
 #REMOVE SQUARE BRACKETS AND REPLACE WITH COMMAS
@@ -51,5 +53,6 @@ df["all_time_peak"] = df["all_time_peak"].str.replace("[",",", regex=False).str.
 df["ref."] = (df["ref."].fillna("").astype(str).str.replace(r"\]\[",",", regex=True).str.replace(r"[\[\]]","", regex=True).str.strip())
 print(df.to_string())
 
+df.to_csv("highest_grossing_concert_tours.csv", index=False)
 
 
