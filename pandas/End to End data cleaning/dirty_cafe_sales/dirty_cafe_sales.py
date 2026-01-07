@@ -11,9 +11,22 @@ df.columns = df.columns.str.strip().str.lower().str.replace(" ","_")
 
 #CLEAN to replace UNKNOWN & ERROR to NaN
 df = df.replace(["UNKNOWN","ERROR"],np.nan,regex=True)
-print(df)
+df = df.dropna()
+#print(df)
 
+#FIXING DTYPES
+#print(df[["quantity","price_per_unit","total_spent"]])
+df["quantity"] = pd.to_numeric(df["quantity"], errors="coerce")
+df["price_per_unit"] = pd.to_numeric(df["price_per_unit"], errors="coerce")
+df["total_spent"] = pd.to_numeric(df["total_spent"], errors="coerce")
+#print(df.dtypes)
 
+#FIXING IMBALANCED TOTALS (Quantity * Price Per Unit ≠ Total Spent)
+df["calculated_total"] = df["quantity"] * df["price_per_unit"]
+df["imbalanced_total"] = np.where(abs(df["calculated_total"] - df["total_spent"]) > 0.01, True, False)
+
+#imbalanced_rows = df[df["imbalanced_total"] == True]
+#print(imbalanced_rows.sum())
 
 
 
